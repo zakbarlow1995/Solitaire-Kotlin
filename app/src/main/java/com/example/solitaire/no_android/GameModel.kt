@@ -18,6 +18,13 @@ object GameModel {
         }
     }
 
+    fun hasWon(): Boolean {
+        return foundationPiles[0].cards.size == 13 &&
+                foundationPiles[1].cards.size == 13 &&
+                foundationPiles[2].cards.size == 13 &&
+                foundationPiles[3].cards.size == 13
+    }
+
     fun onDeckTap() {
         if (deck.cardsInDeck.size > 0 ) {
             val card = deck.drawCard()

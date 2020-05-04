@@ -1,12 +1,14 @@
 package com.example.solitaire
 
 import android.content.Context
+import android.content.DialogInterface
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.TextView
+import androidx.appcompat.app.AlertDialog
 import org.jetbrains.anko.*
 
 val cardBackDrawable = R.drawable.cardback_red4
@@ -28,7 +30,6 @@ class MainActivity : AppCompatActivity(), GameView {
     var wastePileView: WastePileView? = null
     val foundationPileViews: Array<FoundationPileView?> = arrayOfNulls(4)
     val tableauPileViews: Array<TableauPileView?> = arrayOfNulls(7)
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -68,6 +69,23 @@ class MainActivity : AppCompatActivity(), GameView {
         wastePileView!!.update()
         foundationPileViews.forEach { it!!.update() }
         tableauPileViews.forEach { it!!.update() }
+        if (GameModel.hasWon()) {
+            gameOver()
+        }
+    }
+
+    private fun gameOver() {
+        val builder = AlertDialog.Builder(this)
+        with(builder)
+        {
+            setTitle("Congratulations!")
+            setMessage("You have won the game!")
+            setPositiveButton("New Game") { _, _ ->
+                GameModel.resetGame()
+                update()
+            }
+            show()
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
