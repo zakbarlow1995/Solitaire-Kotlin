@@ -9,7 +9,7 @@ import android.view.View
 import android.widget.TextView
 import org.jetbrains.anko.*
 
-val cardBackDrawable = R.drawable.cardback_green5
+val cardBackDrawable = R.drawable.cardback_red4
 val emptyPileDrawable = R.drawable.cardback_blue1
 
 val Context.cardWidth: Int
@@ -37,9 +37,6 @@ class MainActivity : AppCompatActivity(), GameView {
         GamePresenter.setGameView(this)
 
         GameModel.resetGame()
-
-//        val cardWidth = (displayMetrics.widthPixels - dip(8)) / 7
-//        val cardHeight = cardWidth * 190/140
 
         verticalLayout {
             leftPadding = dip(4)
