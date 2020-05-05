@@ -41,8 +41,8 @@ class MainActivity : AppCompatActivity(), GameView {
         // Set the game view
         GamePresenter.setGameView(this)
 
-        //GameModel.resetGame()
-        GameModel.resetGameToVictoryState()
+        GameModel.resetGame()
+        //GameModel.resetGameToVictoryState()
 
         verticalLayout {
             leftPadding = dip(4)
@@ -99,7 +99,9 @@ class MainActivity : AppCompatActivity(), GameView {
         if (item.title == undo) {
             Toast.makeText(applicationContext,
                 "Undo Pressed", Toast.LENGTH_SHORT).show()
+            // Tell presenter to perform an UNDO action on the model
         } else {
+            // Potentially refactor this into the presenter
             GameModel.resetGame()
             update()
         }
