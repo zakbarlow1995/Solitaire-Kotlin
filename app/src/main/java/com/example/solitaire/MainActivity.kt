@@ -8,6 +8,7 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import org.jetbrains.anko.*
 
@@ -26,6 +27,9 @@ fun View.getResIdForCard(card: Card): Int {
 
 class MainActivity : AppCompatActivity(), GameView {
 
+    private val undo = "Undo"
+    private val startOver = "Start Over"
+
     var deckView: DeckView? = null
     var wastePileView: WastePileView? = null
     val foundationPileViews: Array<FoundationPileView?> = arrayOfNulls(4)
@@ -37,7 +41,8 @@ class MainActivity : AppCompatActivity(), GameView {
         // Set the game view
         GamePresenter.setGameView(this)
 
-        GameModel.resetGame()
+        //GameModel.resetGame()
+        GameModel.resetGameToVictoryState()
 
         verticalLayout {
             leftPadding = dip(4)
@@ -63,18 +68,14 @@ class MainActivity : AppCompatActivity(), GameView {
         }
     }
 
-//    override fun update(model: GameModel) {
-    override fun update() {
+    override fun update(model: GameModel) {
         deckView!!.update()
         wastePileView!!.update()
         foundationPileViews.forEach { it!!.update() }
         tableauPileViews.forEach { it!!.update() }
-        if (GameModel.hasWon()) {
-            gameOver()
-        }
     }
 
-    private fun gameOver() {
+    override fun gameOver() {
         val builder = AlertDialog.Builder(this)
         with(builder)
         {
@@ -89,46 +90,19 @@ class MainActivity : AppCompatActivity(), GameView {
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        menu.add("Start Over")
+        menu.add(undo)
+        menu.add(startOver)
         return true
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        GameModel.resetGame()
-        update()
+        if (item.title == undo) {
+            Toast.makeText(applicationContext,
+                "Undo Pressed", Toast.LENGTH_SHORT).show()
+        } else {
+            GameModel.resetGame()
+            update()
+        }
         return true
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-//val textViewId = 11
-
-
-//        print("hello")
-//        var counter = 0
-//
-//        relativeLayout {
-//            val counterTextView = textView {
-//                id = textViewId
-//                text = "0"
-//                textSize = 24f
-//            }
-//            button {
-//                onClick {
-//                    counter++
-//                    counterTextView.text = counter.toString()
-//                }
-//            }.lparams {
-//                below(counterTextView)
-//            }
-//        }

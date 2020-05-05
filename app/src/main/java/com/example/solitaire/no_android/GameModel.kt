@@ -18,6 +18,18 @@ object GameModel {
         }
     }
 
+    fun resetGameToVictoryState() {
+        wastePile.clear()
+        foundationPiles.forEach { it.reset() }
+        deck.reset()
+        deck.cardsInDeck.sortByDescending { it.value }
+
+        for (x in 0 until (deck.cards.size - 4)) {
+            onDeckTap()
+            onWasteTapped()
+        }
+    }
+
     fun hasWon(): Boolean {
         return foundationPiles[0].cards.size == 13 &&
                 foundationPiles[1].cards.size == 13 &&
