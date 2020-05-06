@@ -8,4 +8,4 @@ Practicing Kotlin with a simple Solitaire app. This Android Studio project does 
 
 ## Installation
 
-Download the apk file from [app/release/app-release.apk](.app/release/app-release.apk) and install it by following the instructions on your android device.
+Download the apk file from [./app/release/app-release.apk](.app/release/app-release.apk) and install it by following the instructions on your android device.
