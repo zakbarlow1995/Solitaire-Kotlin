@@ -11,7 +11,7 @@ import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import org.jetbrains.anko.*
 
-val cardBackDrawable = R.drawable.cardback_red4
+val cardBackDrawable = R.drawable.cardback_red3_q
 val emptyPileDrawable = R.drawable.cardback_blue1
 
 val Context.cardWidth: Int
